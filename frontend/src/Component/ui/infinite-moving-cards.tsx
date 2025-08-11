@@ -12,6 +12,7 @@ export const InfiniteMovingCards = ({
 }: {
   items: {
     name: string;
+    className?: string;
   }[];
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";

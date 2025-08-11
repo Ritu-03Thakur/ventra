@@ -1,37 +1,90 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { TextGenerateEffect } from "../ui/text-generate-effect";
+import { cn } from "@/lib/utils";
 import { RiShoppingBag4Fill } from "react-icons/ri";
 
+interface HeadingProps {
+  heading: string;
+  className?: string;
+  align?: "left" | "center" | "right";
+}
 
-const TextPara = ({ words }: { words: string }) => {
-  return (
-    <div>
-      <TextGenerateEffect words={words} />
-    </div>
-  );
-};
+const Heading = ({ 
+  heading, 
+  className = "",
+  align = "center" 
+}: HeadingProps) => {
+  const alignClasses = {
+    left: "justify-start text-left",
+    center: "justify-center text-center",
+    right: "justify-end text-right"
+  };
 
-const Heading = ({ heading }: { heading: string }) => {
   return (
-    <>
-      <div className=" items-center gap-2 inline-flex justify-center w-full">
-        <hr className="w-64 h-[2px] my-8 bg-[#a0a3a7] border-0  rounded-md" />
-        <h1 className="mb-4 text-4xl font-semibold leading-none  tracking-tight text-textHeading md:text-5xl lg:text-6xl">
+    <motion.div 
+      className={cn("w-full", className)}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className={cn("flex items-center gap-4", alignClasses[align])}>
+        {align !== "left" && (
+          <span className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+        )}
+        <h2 className="text-3xl font-bold tracking-tight text-textHeading sm:text-4xl lg:text-5xl">
           {heading}
-        </h1>
-        <hr className="w-64 h-[2px] my-8 bg-[#a0a3a7] border-0  rounded-md" />
+        </h2>
+        {align !== "right" && (
+          <span className="h-px flex-1 bg-gradient-to-l from-transparent via-gray-300 to-transparent" />
+        )}
       </div>
-    </>
+    </motion.div>
   );
 };
-const SubHeading = ({ subheading }: { subheading: string }) => {
+
+interface SubHeadingProps {
+  subheading: string;
+  className?: string;
+  align?: "left" | "center" | "right";
+  maxWidth?: string;
+}
+
+const SubHeading = ({ 
+  subheading, 
+  className = "",
+  align = "center",
+  maxWidth = "max-w-2xl"
+}: SubHeadingProps) => {
+  const alignClasses = {
+    left: "text-left ml-0 mr-auto",
+    center: "text-center mx-auto",
+    right: "text-right ml-auto mr-0"
+  };
+
   return (
-    <>
-      <p className=" p-1.5 mb-3 text-[#817e7e]  first-line:uppercase first-line:tracking-widest first-letter:text-7xl first-letter:font-bold first-letter:text-gray-700  first-letter:me-3 first-letter:float-start md:max-w-[600px]">
+    <motion.div
+      className={cn("w-full mt-4", className)}
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+    >
+      <p className={cn(
+        "text-lg text-textColor/80 leading-relaxed",
+        maxWidth,
+        alignClasses[align]
+      )}>
         {subheading}
       </p>
-    </>
+    </motion.div>
   );
+};
+
+// Deprecated - kept for backward compatibility
+const TextPara = ({ words }: { words: string }) => {
+  return <TextGenerateEffect words={words} />;
 };
 
 const CartButton = ({ mybutton , onClick }: 

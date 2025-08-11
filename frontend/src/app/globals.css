@@ -2,64 +2,122 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: #FFFFFF;
-  font-size: 14px;
-  color:#714949 ;
-  font-weight: 700;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-
-
-.authbutton{
-  width: 200px;
-    height: 50px;
-    color: #c9bcbc;
-    font-size: 20px;
-    display: flex;
-    font-weight: 600;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-}
-
-
-
-.smooth{
-  transition: all 1s ;
-}
-.smooth:hover{
-  transform: scale(1.2);
-}
-
-.imgTransition{
-  transition: all 1s ease-in-out;
-}
-.imgTransition:hover{
-  transform: scale(1.2);
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
-.dropTransition{
-  transition: all 1s ease-in-out;
-}
-.dropTransition:hover{
-  transform: scale(1.2);
+  html {
+    scroll-behavior: smooth;
   }
 
-  .bgOpacity {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.5;
-    z-index: 0;
+  body {
+    @apply bg-white text-textColor font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-textHeading tracking-tight;
+    line-height: 1.2;
+  }
+
+  h1 { @apply text-4xl md:text-5xl; }
+  h2 { @apply text-3xl md:text-4xl; }
+  h3 { @apply text-2xl md:text-3xl; }
+  h4 { @apply text-xl md:text-2xl; }
+  h5 { @apply text-lg md:text-xl; }
+  h6 { @apply text-base md:text-lg; }
+
+  a {
+    @apply text-accent hover:text-accentHover transition-colors duration-300;
+  }
+
+  .btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out;
+    @apply bg-accent text-white hover:bg-accentHover transform hover:-translate-y-0.5;
+    @apply focus:outline-none focus:ring-2 focus:ring-accent focus:ring-opacity-50;
+    @apply active:scale-95;
+  }
+
+  .btn-outline {
+    @apply bg-transparent border-2 border-accent text-accent;
+    @apply hover:bg-accent hover:text-white;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300;
+    @apply hover:shadow-lg transform hover:-translate-y-1;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(50px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out forwards;
+}
+
+/* Smooth transitions */
+.smooth {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.smooth:hover {
+  @apply transform -translate-y-0.5;
+}
+
+/* Image hover effects */
+.img-hover-zoom {
+  @apply overflow-hidden rounded-lg;
+}
+
+.img-hover-zoom img {
+  @apply transition-transform duration-500 ease-in-out;
+}
+
+.img-hover-zoom:hover img {
+  @apply transform scale-110;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-green-50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-accent rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-accentHover;
+}

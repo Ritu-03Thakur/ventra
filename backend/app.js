@@ -11,10 +11,11 @@ app.use(express.urlencoded({extended : true , limit: "16kb"}))
 app.use(express.static("public")) 
  app.use(cookieParser())
 
+ 
+ app.use("/api/users" , userRouter) 
+ 
  app.get('/', (req, res) => {
     res.send("API Working"); 
 });
-
-app.use("/api/users" , userRouter) 
 
 export {app}

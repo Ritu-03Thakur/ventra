@@ -1,68 +1,136 @@
-"use client"
+"use client";
+
+import { motion, Variants } from "framer-motion";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { showTotalAmount, showTotalQuantity } from "@/lib/store/FeaturedSlice/cart";
 import Link from "next/link";
-import { RiShoppingBag4Fill } from "react-icons/ri";
+import { ShoppingBag, Truck, CheckCircle } from "lucide-react";
+import { Button } from "@/Component/ui/button";
 
 const CartOrderTotal = () => {
   const totalPrice = useSelector(showTotalAmount);
   const totalQuantity = useSelector(showTotalQuantity);
-
-  // Flag to check if it's client-side rendering
   const [isClient, setIsClient] = useState(false);
+  const deliveryCharge = totalPrice > 1000 ? 0 : 550;
+  const total = totalPrice + deliveryCharge;
 
-  // UseEffect to set client-side rendering after hydration
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const handleOrder = () => {
-    // Order handling logic
-  };
-
-  // Render only when it's client-side to avoid hydration mismatch
   if (!isClient) {
     return null;
   }
 
+  const container: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const item: Variants = {
+    hidden: { opacity: 0, x: 20 },
+    show: { 
+      opacity: 1, 
+      x: 0,
+      transition: {
+        type: "spring" as const,
+        stiffness: 120,
+        damping: 12,
+      }
+    }
+  };
+
   return (
-    <div className="md:mt-12 mt-2 text-textColor w-[400px] flex flex-col items-center p-2 rounded-2xl border border-gray-700">
-      <h3 className="text-textHeading mb-4 text-2xl p-2 leading-none tracking-tight md:text-4xl">
-        Order Summary
-      </h3>
+    <motion.div 
+      className="w-full max-w-md bg-white rounded-xl shadow-md overflow-hidden self-start sticky top-24"
+      initial="hidden"
+      animate="show"
+      variants={container}
+    >
+      <div className="p-6">
+        <motion.h3 
+          className="text-2xl font-bold text-textHeading mb-6"
+          variants={item}
+        >
+          Order Summary
+        </motion.h3>
 
-      <div>
-        <span className="flex items-center justify-between">
-          <span className="text-sm text-gray-800">SubTotal</span>
-          <span className="text-sm font-medium text-gray-900">₹{totalPrice}.00</span>
-        </span>
-        <span className="flex items-center justify-between">
-          <span className="text-sm text-gray-800">Quantity</span>
-          <span className="text-sm font-medium text-gray-900">{totalQuantity}</span>
-        </span>
-        <span className="flex items-center justify-between">
-          <span className="text-sm text-gray-800">Delivery Charges</span>
-          {totalPrice > 1000 ? (
-            <span className="text-xl font-medium text-[#26c125]">FREE</span>
-          ) : (
-            <span className="text-sm font-medium text-gray-900">₹550</span>
+        <motion.div className="space-y-4 mb-6" variants={container}>
+          <motion.div className="flex justify-between" variants={item}>
+            <span className="text-textColor/80">Subtotal ({totalQuantity} {totalQuantity === 1 ? 'item' : 'items'})</span>
+            <span className="font-medium">₹{totalPrice.toLocaleString()}</span>
+          </motion.div>
+          
+          <motion.div className="flex justify-between" variants={item}>
+            <span className="text-textColor/80">Delivery</span>
+            {deliveryCharge === 0 ? (
+              <span className="flex items-center gap-1 text-green-500">
+                <CheckCircle size={16} />
+                FREE
+              </span>
+            ) : (
+              <span>₹{deliveryCharge}</span>
+            )}
+          </motion.div>
+          
+          {deliveryCharge === 0 && (
+            <motion.div 
+              className="text-sm text-green-600 bg-green-50 p-2 rounded-lg flex items-center gap-2"
+              variants={item}
+            >
+              <Truck size={16} />
+              <span>Free delivery on orders over ₹1,000</span>
+            </motion.div>
           )}
-        </span>
-        <hr className="w-64 h-[2px] my-8 bg-[#a0a3a7] border-0 rounded-md" />
-        <span className="flex items-center justify-between">
-          <span className="text-sm text-gray-800">Total</span>
-          <span className="text-sm font-medium text-gray-900">₹{totalPrice}.00</span>
-        </span>
-      </div>
-      <Link href={"/place-order"}>
-      <button className=" h-10 flex items-center gap-2 mt-4 w-full rounded-lg bg-textHeading px-2 py-1.5 text-sm font-bold justify-center text-[#c9bcbc] shadow-sm hover:bg-[#b237ca] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ">
-      <RiShoppingBag4Fill size={20} />
-      PLACE ORDER
-      </button>
-      </Link>
+          
+          <motion.div className="border-t border-gray-100 my-4" variants={item} />
+          
+          <motion.div className="flex justify-between text-lg font-semibold" variants={item}>
+            <span>Total</span>
+            <span>₹{total.toLocaleString()}</span>
+          </motion.div>
+        </motion.div>
 
-    </div>
+        <motion.div variants={item}>
+          <Link href="/place-order" className="block">
+            <Button 
+              className="w-full py-6 text-base font-medium flex items-center justify-center gap-2"
+              size="lg"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              Proceed to Checkout
+            </Button>
+          </Link>
+        </motion.div>
+        
+        <motion.p 
+          className="text-xs text-textColor/60 text-center mt-4"
+          variants={item}
+        >
+          By placing your order, you agree to our Terms of Service and Privacy Policy
+        </motion.p>
+      </div>
+      
+      <div className="bg-gray-50 p-4 border-t border-gray-100">
+        <motion.div 
+          className="flex items-center gap-3 text-sm text-textColor/80"
+          variants={item}
+        >
+          <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>Secure Checkout</span>
+        </motion.div>
+      </div>
+    </motion.div>
   );
 };
 

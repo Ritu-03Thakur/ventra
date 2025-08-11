@@ -15,16 +15,33 @@ const config = {
 	],
   prefix: "",
   theme: {
-    colors : {
-      "bgColor" : "#e3e3e3" , 
-     "textColor" : "#817e7e" ,
-     "hoverTextColor" : "#6d4c41" , 
-     "textHeading"  : "#4E342E" , 
-     "borderColor" : "#353333" , 
-     "textSecondary" : "#b76bbbfa" , 
-     "textPrimary" : "#c5c4c4" ,
-
-    } , 
+    colors: {
+      // Base colors
+      white: "#ffffff",
+      // Green palette
+      green: {
+        50: "#f0fdf4",
+        100: "#dcfce7",
+        200: "#bbf7d0",
+        300: "#86efac",
+        400: "#4ade80",
+        500: "#22c55e",
+        600: "#16a34a",
+        700: "#15803d",
+        800: "#166534",
+        900: "#14532d",
+      },
+      // Theme colors
+      bgColor: "#ffffff",
+      textColor: "#374151",
+      hoverTextColor: "#15803d",
+      textHeading: "#1a2e05",
+      borderColor: "#e5e7eb",
+      textSecondary: "#4b5563",
+      textPrimary: "#1f2937",
+      accent: "#22c55e",
+      accentHover: "#16a34a",
+    },
     container: {
       center: true,
       padding: "2rem",

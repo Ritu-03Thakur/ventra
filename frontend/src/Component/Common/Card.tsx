@@ -1,12 +1,14 @@
 "use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { CartButton } from "./Common";
-import { MdCurrencyRupee } from "react-icons/md";
-import { FaStar } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/lib/store/FeaturedSlice/cart";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { addToCart } from "@/lib/store/FeaturedSlice/cart";
+import { Button } from "@/Component/ui/button";
+import { ShoppingBag, Star } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface CardProps {
   id: string;
@@ -14,69 +16,99 @@ interface CardProps {
   description: string;
   price: number;
   srcImage: string;
+  className?: string;
 }
 
-const Card = ({ id, title, description, price, srcImage }: CardProps) => {
+const Card = ({ id, title, description, price, srcImage, className }: CardProps) => {
   const dispatch = useDispatch();
 
-  const handleCart = () => {
-    toast.success("Item Added to Cart 😸");
+  const handleCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    toast.success("Item added to cart!");
     dispatch(
       addToCart({
-        id: id,
+        id,
         quantity: 1,
-        price: price,
-        title: title,
-        srcImage: srcImage,
+        price,
+        title,
+        srcImage,
+        description,
       })
-    )
-
-
+    );
   };
 
   return (
-    <div className="w-[300px] backdrop-blur-sm  inset-0 bg-white/30">
-      <Link
-        href={`/product/${id}`}
-        style={{
-          boxShadow: "1px 2px 11px 8px '#c8c0d3'",
-        }}
-        className="rounded-md bg-[#bcaac5]"
-      >
-        <div className="overflow-hidden">
+    <motion.div 
+      className={cn(
+        "group relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl",
+        className
+      )}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -5 }}
+    >
+      <Link href={`/product/${id}`} className="block">
+        <div className="relative h-64 w-full overflow-hidden bg-gray-50">
           <Image
             src={srcImage}
-            alt="product"
-            width={300}
-            height={300}
-            // layout="responsive"
-            className="h-[300px] w-full rounded-t-md object-cover imgTransition"
-            loading="lazy"
+            alt={title}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, 33vw"
+            priority
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+          
+          <motion.div 
+            className="absolute bottom-4 right-4"
+            initial={{ opacity: 0, y: 10 }}
+            whileHover={{ opacity: 1, y: 0 }}
+          >
+            <Button 
+              size="icon" 
+              variant="default" 
+              className="rounded-full h-10 w-10 shadow-lg"
+              onClick={handleCart}
+            >
+              <ShoppingBag className="h-4 w-4" />
+            </Button>
+          </motion.div>
+        </div>
+
+        <div className="p-5">
+          <div className="mb-2 flex items-center justify-between">
+            <h3 className="text-lg font-semibold text-textHeading line-clamp-1">
+              {title}
+            </h3>
+            <div className="flex items-center rounded-full bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
+              <Star className="mr-1 h-3 w-3 fill-current" />
+              <span>4.8</span>
+            </div>
+          </div>
+          
+          <p className="mb-3 text-sm text-textColor/70 line-clamp-2">
+            {description}
+          </p>
+          
+          <div className="flex items-center justify-between">
+            <span className="text-lg font-bold text-textHeading">
+              ${price.toFixed(2)}
+            </span>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="group-hover:bg-accent group-hover:text-white"
+              onClick={handleCart}
+            >
+              Add to Cart
+            </Button>
+          </div>
         </div>
       </Link>
-      <div className="p-4 text-[#938e8e]">
-        <div className="flex justify-between">
-          <h1 className=" truncate text-sm font-bold ">
-            {title}
-          </h1>
-          <span className="flex gap-1 items-center text-textHeading font-bold">
-            <FaStar /> 4.1
-          </span>
-        </div>
-        <p className="text-sm  truncate ">{description}</p>
-        <div className="flex items-center  ">
-          <p className="flex text-xl items-center font-bold justify-center ">
-            <MdCurrencyRupee size={22} />
-            {price}
-          </p>
-        </div>
-        <div className="flex items-center gap-1">
-          <CartButton mybutton="ADD TO BAG" onClick={handleCart} />
-          
-        </div>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 
