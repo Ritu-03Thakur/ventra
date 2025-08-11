@@ -63,7 +63,7 @@ const EmptyCart = () => {
         className="text-textColor/80 mb-8 max-w-md mx-auto"
         variants={item}
       >
-        Looks like you haven't added anything to your cart yet. Let's find something special for you!
+        Looks like you haven&apos;t added anything to your cart yet. Let&apos;s find something special for you!
       </motion.p>
       
       <motion.div variants={item}>

@@ -130,7 +130,7 @@ export default function ContactPage() {
               Get in Touch
             </h1>
             <p className="text-lg text-gray-600">
-              Have questions or feedback? We'd love to hear from you. Reach out to our team and we'll get back to you as soon as possible.
+              Have questions or feedback? We&apos;d love to hear from you. Reach out to our team and we&apos;ll get back to you as soon as possible.
             </p>
           </motion.div>
         </div>
@@ -266,7 +266,7 @@ export default function ContactPage() {
               >
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
                 <p className="text-gray-600 mb-8">
-                  We're here to help and answer any questions you might have. We look forward to hearing from you.
+                  We&apos;re here to help and answer any questions you might have. We look forward to hearing from you.
                 </p>
 
                 <div className="space-y-6">
@@ -334,7 +334,7 @@ export default function ContactPage() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-            <p className="text-gray-600">Can't find what you're looking for? Check out our FAQ section below.</p>
+            <p className="text-gray-600">Can&apos;t find what you&apos;re looking for? Check out our FAQ section below.</p>
           </motion.div>
 
           <div className="max-w-3xl mx-auto space-y-4">

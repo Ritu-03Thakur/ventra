@@ -18,7 +18,7 @@ export default function OrderSuccess() {
         </p>
         
         <div className="bg-gray-50 p-4 rounded-lg mb-6 text-left">
-          <h2 className="font-medium text-gray-900 mb-2">What's next?</h2>
+          <h2 className="font-medium text-gray-900 mb-2">What&apos;s next?</h2>
           <ul className="space-y-2 text-sm text-gray-600">
             <li className="flex items-start">
               <span className="mr-2">•</span>
@@ -26,7 +26,7 @@ export default function OrderSuccess() {
             </li>
             <li className="flex items-start">
               <span className="mr-2">•</span>
-              <span>We'll notify you when your order ships</span>
+              <span>We&apos;ll notify you when your order ships</span>
             </li>
             <li className="flex items-start">
               <span className="mr-2">•</span>

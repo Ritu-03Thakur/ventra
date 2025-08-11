@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { FaShoppingBag, FaMapMarkerAlt, FaCreditCard, FaCheck } from 'react-icons/fa';
 
 declare global {
@@ -236,10 +237,13 @@ const PlaceOrder = () => {
                 {orderItems.map((item) => (
                   <div key={item.id} className="flex items-start">
                     <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                      <img
+                      <Image
                         src={item.image || '/placeholder-product.jpg'}
                         alt={item.name}
+                        width={64}
+                        height={64}
                         className="h-full w-full object-cover object-center"
+                        unoptimized={!item.image.startsWith('/')}
                       />
                     </div>
                     <div className="ml-4 flex-1">

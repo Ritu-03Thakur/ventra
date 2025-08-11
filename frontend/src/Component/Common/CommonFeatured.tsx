@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, Variants } from "framer-motion";
+import Image from "next/image";
 import { policyText } from '@/Data';
 import { cn } from "@/lib/utils";
 import { IconType } from "react-icons";
@@ -112,10 +113,13 @@ const ExploreFeatured = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="relative aspect-square w-full max-w-lg mx-auto">
-              <img 
+              <Image 
                 src={"/images/explore.gif"}
                 alt="Explore Featured Image"
+                width={500}
+                height={500}
                 className="w-full h-full object-cover rounded-2xl shadow-xl"
+                priority
               />
             </div>
           </motion.div>
@@ -182,7 +186,7 @@ const PolicyFeatured = () => {
             Why Choose Us
           </h2>
           <p className="text-lg text-textColor/80 max-w-3xl mx-auto">
-            We're committed to providing the best shopping experience with our premium services
+            We&apos;re committed to providing the best shopping experience with our premium services
           </p>
         </motion.div>
 
