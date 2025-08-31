@@ -1,5 +1,5 @@
 "use client";
-import { productItems } from "@/Data";
+import { productItems } from "@/Data/Data";
 import Image from "next/image";
 import { FC } from "react";
 import { Heart, Share } from "lucide-react";
@@ -41,7 +41,7 @@ const ProductId: FC<pageProps> = ({ params }) => {
               key={product.id}
             >
               <div className="overflow-hidden">
-                <div className="mb-9 pt-4 md:px-6 md:pt-7 lg:mb-2 lg:p-8 2xl:p-10 2xl:pt-10">
+                <div className="mb-9 pt-4 md:px-6 md:pt-7 lg:mb-2 lg:p-8 2xl:p-10 2xl:pt-10 mt-header">
                   <div className="items-start justify-between lg:flex lg:space-x-8">
                     <div className="mb-6 items-center justify-center overflow-hidden md:mb-8 lg:mb-0 xl:flex">
                       <div className="w-full xl:flex xl:flex-row-reverse">

@@ -2,7 +2,7 @@
 import  {  PolicyFeatured } from "@/Component/Common/CommonFeatured";
 import FeaturedSection from "@/Component/Common/FeaturedSection";
 import HeroSection from "@/Component/Layout/HeroSection";
-import { productItems } from "@/Data";
+import { productItems } from "@/Data/Data";
 
 
 export default function Home() {

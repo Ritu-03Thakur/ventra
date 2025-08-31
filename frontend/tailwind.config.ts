@@ -50,6 +50,12 @@ const config = {
       },
     },
     extend: {
+      spacing: {
+        'header-sm': '4rem', // 64px
+        'header': '5rem',    // 80px
+        'header-md': '6rem', // 96px
+        'header-lg': '7rem'  // 112px
+      },
       
       
       keyframes: {

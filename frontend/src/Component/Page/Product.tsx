@@ -6,7 +6,7 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import Card from '@/Component/Common/Card'
 import { Heading, SubHeading } from '@/Component/Common/Common'
-import { productItems } from '@/Data'
+import { productItems } from '@/Data/Data'
 import { Button } from '@/Component/ui/button'
 import { Filter, Search, ChevronDown } from 'lucide-react'
 import { cn } from "@/lib/utils"
@@ -69,11 +69,11 @@ const Product = () => {
           src={"/images/collectionFront.png"}
           alt="Fashion Collection"
           fill
-          className="object-cover mt-20"
+          className="object-cover mt-header-md"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 text-center p-8">
+        <div className="absolute bottom-0 left-0 right-0 text-center p-8 ">
           <motion.h1 
             className="text-4xl md:text-6xl font-bold text-white mb-4"
             initial={{ y: 30, opacity: 0 }}

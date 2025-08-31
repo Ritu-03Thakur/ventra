@@ -40,11 +40,11 @@ const EmptyCart = () => {
       animate="show"
     >
       <motion.div 
-        className="relative w-64 h-64 mx-auto mb-8"
+        className="relative w-64 h-64 mx-auto mb-8 mt-header"
         variants={item}
       >
         <Image
-          src="/images/empty-cart.svg"
+          src="/images/emptyCart.jpg"
           alt="Empty shopping cart"
           fill
           className="object-contain"

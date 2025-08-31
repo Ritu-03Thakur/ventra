@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Image from "next/image";
-import { policyText } from '@/Data';
+import { policyText } from '@/Data/Data';
 import { cn } from "@/lib/utils";
 import { IconType } from "react-icons";
 

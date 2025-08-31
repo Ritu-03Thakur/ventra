@@ -28,19 +28,19 @@ export default function AboutPage() {
     {
       name: 'Alex Johnson',
       role: 'Founder & CEO',
-      image: '/team/ceo.jpg',
+      image: '/images/person.jpg',
       bio: 'With over 15 years in the e-commerce industry, Alex leads Ventra with a vision for sustainable and customer-focused retail.'
     },
     {
       name: 'Sarah Chen',
       role: 'Head of Design',
-      image: '/team/designer.jpg',
+      image: '/images/person.jpg',
       bio: 'Sarah brings creativity and innovation to our product selection, ensuring we offer the best in style and functionality.'
     },
     {
       name: 'Michael Rodriguez',
       role: 'Tech Lead',
-      image: '/team/tech.jpg',
+      image: '/images/person.jpg',
       bio: 'Michael oversees our technology stack, making sure your shopping experience is seamless and secure.'
     },
   ];

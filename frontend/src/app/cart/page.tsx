@@ -41,7 +41,7 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="container mx-auto">
         <AnimatePresence mode="wait">
           {isCartEmpty ? (
             <motion.div
@@ -56,7 +56,7 @@ const Cart = () => {
           ) : (
             <motion.div
               key="cart-content"
-              className="flex flex-col lg:flex-row gap-8"
+              className="flex flex-col lg:flex-row gap-8 mt-header"
               variants={container}
               initial="hidden"
               animate="show"

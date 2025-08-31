@@ -1,9 +1,10 @@
 "use client";
-
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { FaShoppingBag, FaMapMarkerAlt, FaCreditCard, FaCheck } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 declare global {
   interface Window {
@@ -30,8 +31,8 @@ const PlaceOrder = () => {
   // Calculate order summary
   const subtotal: number = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const shipping: number = 0; // Free shipping for demo
-  const tax: number = subtotal * 0.18; // 18% tax
-  const total: number = subtotal + shipping + tax;
+  const tax: number = Math.round(subtotal * 0.18); // 18% tax
+  const total: number = (subtotal + shipping + tax);
 
   // Load cart items from localStorage (replace with your actual cart state management)
   useEffect(() => {
@@ -44,7 +45,7 @@ const PlaceOrder = () => {
 
   const handlePayment = async () => {
     if (!address) {
-      alert('Please enter your shipping address');
+      toast.error('Please enter your shipping address');
       return;
     }
 
@@ -52,18 +53,12 @@ const PlaceOrder = () => {
 
     try {
       // Create order on your server
-      const response = await fetch('/api/razorpay', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          amount: total,
-          currency: 'INR',
-        }),
+      const response = await axios.post('/api/razorpay', {
+        amount: total,
+        currency: 'INR',
       });
-
-      const order = await response.json();
+      const order = await response.data;
+      
 
       // Load Razorpay script
       const script = document.createElement('script');
@@ -104,11 +99,11 @@ const PlaceOrder = () => {
                   router.push('/order-success');
                 }, 3000);
               } else {
-                alert('Payment verification failed. Please contact support.');
+                toast.error('Payment verification failed. Please contact support.');
               }
             } catch (error) {
               console.error('Payment verification error:', error);
-              alert('Error verifying payment. Please contact support.');
+              toast.error('Error verifying payment. Please contact support.');
             }
           },
           prefill: {
@@ -128,7 +123,7 @@ const PlaceOrder = () => {
       document.body.appendChild(script);
     } catch (error) {
       console.error('Error creating order:', error);
-      alert('Error creating order. Please try again.');
+      toast.error('Error creating order. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -219,6 +214,7 @@ const PlaceOrder = () => {
                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300"
                     checked={paymentMethod === 'cod'}
                     onChange={() => setPaymentMethod('cod')}
+                    disabled
                   />
                   <label htmlFor="cod" className="ml-3 block text-sm font-medium text-gray-700">
                     Cash on Delivery (Not Available)
@@ -243,7 +239,7 @@ const PlaceOrder = () => {
                         width={64}
                         height={64}
                         className="h-full w-full object-cover object-center"
-                        unoptimized={!item.image.startsWith('/')}
+                        
                       />
                     </div>
                     <div className="ml-4 flex-1">
@@ -281,7 +277,7 @@ const PlaceOrder = () => {
                   type="button"
                   onClick={handlePayment}
                   disabled={loading || orderItems.length === 0}
-                  className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${(loading || orderItems.length === 0) ? 'opacity-70 cursor-not-allowed' : ''}`}
+                  className={`w-full flex justify-center py-3 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 ${(loading || orderItems.length === 0) ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
                   {loading ? 'Processing...' : 'Place Order'}
                 </button>
