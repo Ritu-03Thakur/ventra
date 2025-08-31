@@ -25,7 +25,7 @@ const SignUp = () => {
     try {
       e.preventDefault();
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_NEXT_URL}/api/users/signup`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/signup`,
         user
       );
       if (response.status === 201) {

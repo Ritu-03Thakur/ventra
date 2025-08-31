@@ -22,7 +22,7 @@ const Login = () => {
     const onLogin = async (e : any) => {  
        try {
          e.preventDefault()
-       const response =await axios.post(`${process.env.NEXT_PUBLIC_NEXT_URL}/api/users/login`, user)
+       const response =await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, user)
         if(response.status == 200){
           const { data: { isLogIn: { name } } } = response;
           dispatch(setName(name));
